@@ -22,9 +22,13 @@ from app.processors.metadata import generate_metadata
 def apply_cleaning(
     dataset_id: str,
     request: CleaningRequest,
+    user_id: str,
 ) -> CleaningResponse:
 
-    session = get_session(dataset_id)
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     cleaned_dataframe, operation = (
         apply_cleaning_operation(
@@ -53,12 +57,17 @@ def apply_cleaning(
         operation=operation,
     )
 
+
 def preview_cleaning(
     dataset_id: str,
     request: CleaningRequest,
+    user_id: str,
 ) -> CleaningPreviewResponse:
 
-    session = get_session(dataset_id)
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     original_dataframe = session.dataframe
 
@@ -76,11 +85,16 @@ def preview_cleaning(
         columns_after=len(preview_dataframe.columns),
     )
 
+
 def get_cleaning_recommendations(
     dataset_id: str,
+    user_id: str,
 ) -> CleaningRecommendationsResponse:
 
-    session = get_session(dataset_id)
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     recommendations = generate_cleaning_recommendations(
         dataframe=session.dataframe,
@@ -91,8 +105,16 @@ def get_cleaning_recommendations(
         recommendations=recommendations,
     )
 
-def get_cleaning_history(dataset_id: str) -> CleaningHistoryResponse:
-    session = get_session(dataset_id)
+
+def get_cleaning_history(
+    dataset_id: str,
+    user_id: str,
+) -> CleaningHistoryResponse:
+
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     return CleaningHistoryResponse(
         status="success",

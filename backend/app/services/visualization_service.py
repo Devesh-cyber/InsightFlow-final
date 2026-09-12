@@ -14,6 +14,7 @@ from app.processors.visualization_analyzer import (
 def get_visualization_options_for_dataset(
     dataset_id: str,
     column_a: str,
+    user_id: str,
     column_b: str | None = None,
 ) -> VisualizationOptions:
     """
@@ -21,7 +22,10 @@ def get_visualization_options_for_dataset(
     selected dataset columns.
     """
 
-    session = get_session(dataset_id)
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     return get_visualization_options(
         dataframe=session.dataframe,
@@ -34,13 +38,17 @@ def get_chart_data(
     dataset_id: str,
     column_a: str,
     chart_type: str,
+    user_id: str,
     column_b: str | None = None,
 ) -> ChartData:
     """
     Generates chart data for the selected columns.
     """
 
-    session = get_session(dataset_id)
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     result = generate_chart_data(
         dataframe=session.dataframe,

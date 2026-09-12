@@ -4,26 +4,91 @@ from typing import Dict
 from datetime import datetime
 from app.models.cleaning import CleaningOperation
 
+
 class ColumnMetadata(BaseModel):
     ''' Stores the meta information about Columns '''
 
-    column_name : str = Field(..., min_length=1, description='Name of the dataset column')
-    dtype : str = Field(..., min_length=1, description='Detected data type of the column')
-    missing_count : int = Field(..., ge=0, description='Total missing values in the column')
-    missing_percentage : float = Field(..., ge=0, le=100, description='Percentage of missing values')
-    unique_count : int = Field(..., ge=0, description='Number of unique values')
+    column_name: str = Field(
+        ...,
+        min_length=1,
+        description='Name of the dataset column'
+    )
+
+    dtype: str = Field(
+        ...,
+        min_length=1,
+        description='Detected data type of the column'
+    )
+
+    missing_count: int = Field(
+        ...,
+        ge=0,
+        description='Total missing values in the column'
+    )
+
+    missing_percentage: float = Field(
+        ...,
+        ge=0,
+        le=100,
+        description='Percentage of missing values'
+    )
+
+    unique_count: int = Field(
+        ...,
+        ge=0,
+        description='Number of unique values'
+    )
+
 
 class DatasetMetadata(BaseModel):
     ''' Stores the meta information about the dataset'''
 
-    dataset_name : str = Field(..., min_length=1, description='Original dataset filename')
-    rows : int = Field(..., ge=0, description='Total number of rows')
-    columns : int = Field(..., ge=0, description='Total number of columns')
-    memory_usage : float = Field(..., ge=0, description='Dataset memory usage in MB')
-    missing_cells : int = Field(..., ge=0, description='Total missing cells in dataset')
-    duplicate_rows : int = Field(..., ge=0, description='Total duplicate rows')
-    column_types : Dict[str, int] = Field(default_factory=dict, description='Distribution of detected column types')
-    created_at : datetime = Field(default_factory=datetime.now, description='Time when metadata was generated')
+    dataset_name: str = Field(
+        ...,
+        min_length=1,
+        description='Original dataset filename'
+    )
+
+    rows: int = Field(
+        ...,
+        ge=0,
+        description='Total number of rows'
+    )
+
+    columns: int = Field(
+        ...,
+        ge=0,
+        description='Total number of columns'
+    )
+
+    memory_usage: float = Field(
+        ...,
+        ge=0,
+        description='Dataset memory usage in MB'
+    )
+
+    missing_cells: int = Field(
+        ...,
+        ge=0,
+        description='Total missing cells in dataset'
+    )
+
+    duplicate_rows: int = Field(
+        ...,
+        ge=0,
+        description='Total duplicate rows'
+    )
+
+    column_types: Dict[str, int] = Field(
+        default_factory=dict,
+        description='Distribution of detected column types'
+    )
+
+    created_at: datetime = Field(
+        default_factory=datetime.now,
+        description='Time when metadata was generated'
+    )
+
 
 class DatasetSession(BaseModel):
     """
@@ -38,6 +103,12 @@ class DatasetSession(BaseModel):
         ...,
         min_length=1,
         description="Unique session identifier"
+    )
+
+    user_id: str = Field(
+        ...,
+        min_length=1,
+        description="Supabase authenticated user identifier"
     )
 
     filename: str = Field(

@@ -13,13 +13,17 @@ from app.processors.session_manager import get_session
 
 
 def get_relationship_columns(
-    dataset_id: str
+    dataset_id: str,
+    user_id: str
 ) -> list[ColumnSummary]:
     """
     Returns columns available for relationship analysis.
     """
 
-    session = get_session(dataset_id)
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     return generate_column_summaries(
         dataframe=session.dataframe
@@ -29,13 +33,17 @@ def get_relationship_columns(
 def get_relationship(
     dataset_id: str,
     column_a: str,
-    column_b: str
+    column_b: str,
+    user_id: str
 ) -> RelationshipResult:
     """
     Returns the relationship analysis between two columns.
     """
 
-    session = get_session(dataset_id)
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     return analyze_relationship(
         dataframe=session.dataframe,

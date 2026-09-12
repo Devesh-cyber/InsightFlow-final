@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from app.models.cleaning import (
     CleaningRecommendationsResponse,
@@ -15,6 +15,8 @@ from app.services.cleaning_service import (
     get_cleaning_history,
 )
 
+from app.core.deps import get_current_user
+
 
 router = APIRouter(
     prefix="/cleaning",
@@ -29,6 +31,7 @@ router = APIRouter(
 )
 async def cleaning_recommendations(
     dataset_id: str,
+    user_id: str = Depends(get_current_user),
 ) -> CleaningRecommendationsResponse:
     """
     Analyze the dataset and return evidence-based
@@ -39,7 +42,9 @@ async def cleaning_recommendations(
 
     return get_cleaning_recommendations(
         dataset_id=dataset_id,
+        user_id=user_id,
     )
+
 
 @router.post(
     "/{dataset_id}/preview",
@@ -49,6 +54,7 @@ async def cleaning_recommendations(
 async def preview_dataset_cleaning(
     dataset_id: str,
     request: CleaningRequest,
+    user_id: str = Depends(get_current_user),
 ) -> CleaningPreviewResponse:
     """
     Preview a user-selected cleaning operation
@@ -58,7 +64,9 @@ async def preview_dataset_cleaning(
     return preview_cleaning(
         dataset_id=dataset_id,
         request=request,
+        user_id=user_id,
     )
+
 
 @router.post(
     "/{dataset_id}",
@@ -68,6 +76,7 @@ async def preview_dataset_cleaning(
 async def clean_dataset(
     dataset_id: str,
     request: CleaningRequest,
+    user_id: str = Depends(get_current_user),
 ) -> CleaningResponse:
     """
     Apply a user-selected cleaning operation
@@ -77,6 +86,7 @@ async def clean_dataset(
     return apply_cleaning(
         dataset_id=dataset_id,
         request=request,
+        user_id=user_id,
     )
 
 
@@ -85,5 +95,12 @@ async def clean_dataset(
     response_model=CleaningHistoryResponse,
     summary="Get Cleaning History",
 )
-async def cleaning_history(dataset_id: str) -> CleaningHistoryResponse:
-    return get_cleaning_history(dataset_id=dataset_id)
+async def cleaning_history(
+    dataset_id: str,
+    user_id: str = Depends(get_current_user),
+) -> CleaningHistoryResponse:
+
+    return get_cleaning_history(
+        dataset_id=dataset_id,
+        user_id=user_id,
+    )

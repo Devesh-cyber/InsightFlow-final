@@ -4,13 +4,17 @@ from app.processors.session_manager import get_session
 
 
 def get_dataset_health(
-        dataset_id: str
+    dataset_id: str,
+    user_id: str
 ) -> HealthResponse:
     '''
     Returns the health report of an uploaded dataset
     '''
 
-    session = get_session(dataset_id)
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     return build_health(
         dataframe=session.dataframe

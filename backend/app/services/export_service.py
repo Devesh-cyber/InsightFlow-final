@@ -10,12 +10,16 @@ from app.processors.session_manager import get_session
 def export_dataset(
     dataset_id: str,
     request: ExportRequest,
+    user_id: str,
 ) -> StreamingResponse:
     """
     Exports the current dataset session in the requested format.
     """
 
-    session = get_session(dataset_id)
+    session = get_session(
+        dataset_id,
+        user_id
+    )
 
     dataframe = session.dataframe
 

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Depends, Query
 
 from app.models.column import (
     ColumnAnalysis,
@@ -9,6 +9,8 @@ from app.services.column_service import (
     get_column_analysis,
     get_column_summaries,
 )
+
+from app.core.deps import get_current_user
 
 
 router = APIRouter(
@@ -24,13 +26,17 @@ router = APIRouter(
 )
 async def get_columns(
     dataset_id: str,
+    user_id: str = Depends(get_current_user),
 ) -> list[ColumnSummary]:
     """
     Returns a lightweight summary of all columns
     in the selected dataset.
     """
 
-    return get_column_summaries(dataset_id)
+    return get_column_summaries(
+        dataset_id=dataset_id,
+        user_id=user_id,
+    )
 
 
 @router.get(
@@ -41,6 +47,7 @@ async def get_columns(
 async def get_column(
     dataset_id: str,
     column_name: str = Query(...),
+    user_id: str = Depends(get_current_user),
 ) -> ColumnAnalysis:
     """
     Returns detailed analysis for a selected column.
@@ -49,4 +56,5 @@ async def get_column(
     return get_column_analysis(
         dataset_id=dataset_id,
         column_name=column_name,
+        user_id=user_id,
     )
