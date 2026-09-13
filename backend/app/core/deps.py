@@ -35,19 +35,15 @@ def get_current_user(
     access_token = credentials.credentials
 
     try:
-        response = supabase.auth.get_claims(access_token)
+        response = supabase.auth.get_user(access_token)
 
-        claims = response.claims
-
-        user_id = claims.get("sub")
-
-        if not user_id:
+        if not response.user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid authentication token.",
             )
 
-        return user_id
+        return response.user.id
 
     except HTTPException:
         raise

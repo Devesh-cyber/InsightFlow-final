@@ -67,60 +67,77 @@ export default function Register() {
     }
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    return (
+    <div className="min-h-screen bg-[var(--color-bg-base)] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
 
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">
+        {/* Brand */}
+        <div className="text-center mb-8">
+          <h1 className="font-sans font-bold text-3xl tracking-tight text-[var(--color-text-primary)]">
+            Insight<span className="text-[var(--color-brand-blue)]">Flow</span>
+          </h1>
+
+          <p className="mt-3 text-sm text-[var(--color-text-secondary)]">
+            Turn your data into insights.
+          </p>
+        </div>
+
+        {/* Register Card */}
+        <div className="bg-[var(--color-bg-surface)] border border-[var(--color-border-strong)] rounded-xl p-8 shadow-xl">
+
+          <div className="mb-7">
+            <h2 className="text-xl font-semibold text-[var(--color-text-primary)]">
               Create Account
-            </h1>
+            </h2>
 
-            <p className="text-gray-500 mt-2">
-              Create your InsightFlow account
+            <p className="mt-1 text-sm text-[var(--color-text-muted)]">
+              Create your InsightFlow account to get started.
             </p>
           </div>
 
+          {/* Error */}
           {error && (
-            <div className="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="mb-5 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
               {error}
             </div>
           )}
 
+          {/* Success */}
           {success && (
-            <div className="mb-5 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+            <div className="mb-5 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-400">
               {success}
             </div>
           )}
 
+          {/* Google */}
           <button
             type="button"
             onClick={handleGoogleRegister}
             disabled={googleLoading || loading}
-            className="w-full flex items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full flex items-center justify-center gap-3 rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm font-medium text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-bg-surface-hover)] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {googleLoading
-              ? "Connecting..."
-              : "Continue with Google"}
+            {googleLoading ? "Connecting..." : "Continue with Google"}
           </button>
 
+          {/* Divider */}
           <div className="flex items-center gap-4 my-6">
-            <div className="h-px flex-1 bg-gray-200" />
+            <div className="h-px flex-1 bg-[var(--color-border-subtle)]" />
 
-            <span className="text-sm text-gray-400">
+            <span className="text-xs font-mono text-[var(--color-text-muted)]">
               OR
             </span>
 
-            <div className="h-px flex-1 bg-gray-200" />
+            <div className="h-px flex-1 bg-[var(--color-border-subtle)]" />
           </div>
 
+          {/* Form */}
           <form onSubmit={handleRegister} className="space-y-5">
 
+            {/* Email */}
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2"
               >
                 Email
               </label>
@@ -133,14 +150,15 @@ export default function Register() {
                 placeholder="you@example.com"
                 required
                 autoComplete="email"
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-gray-500 focus:ring-1 focus:ring-gray-500"
+                className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)]"
               />
             </div>
 
+            {/* Password */}
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2"
               >
                 Password
               </label>
@@ -153,14 +171,15 @@ export default function Register() {
                 placeholder="Create a password"
                 required
                 autoComplete="new-password"
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-gray-500 focus:ring-1 focus:ring-gray-500"
+                className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)]"
               />
             </div>
 
+            {/* Confirm Password */}
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2"
               >
                 Confirm Password
               </label>
@@ -173,28 +192,28 @@ export default function Register() {
                 placeholder="Confirm your password"
                 required
                 autoComplete="new-password"
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-gray-500 focus:ring-1 focus:ring-gray-500"
+                className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)]"
               />
             </div>
 
+            {/* Submit */}
             <button
               type="submit"
               disabled={loading || googleLoading}
-              className="w-full rounded-lg bg-gray-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg bg-[var(--color-brand-blue)] px-4 py-3 text-sm font-medium text-white transition-colors hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading
-                ? "Creating account..."
-                : "Create Account"}
+              {loading ? "Creating account..." : "Create Account"}
             </button>
 
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-6">
+          {/* Login Link */}
+          <p className="text-center text-sm text-[var(--color-text-muted)] mt-7">
             Already have an account?{" "}
 
             <Link
               to="/login"
-              className="font-medium text-gray-900 hover:underline"
+              className="font-medium text-[var(--color-text-primary)] hover:text-[var(--color-brand-blue)] transition-colors"
             >
               Sign in
             </Link>
@@ -204,4 +223,5 @@ export default function Register() {
       </div>
     </div>
   );
+
 }
