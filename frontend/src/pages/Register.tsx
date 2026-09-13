@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import AuthLayout from "../layouts/AuthLayout";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -68,160 +69,172 @@ export default function Register() {
   };
 
     return (
-    <div className="min-h-screen bg-[var(--color-bg-base)] flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-md">
+  <AuthLayout>
 
-        {/* Brand */}
-        <div className="text-center mb-8">
-          <h1 className="font-sans font-bold text-3xl tracking-tight text-[var(--color-text-primary)]">
-            Insight<span className="text-[var(--color-brand-blue)]">Flow</span>
-          </h1>
-
-          <p className="mt-3 text-sm text-[var(--color-text-secondary)]">
-            Turn your data into insights.
-          </p>
-        </div>
-
-        {/* Register Card */}
-        <div className="bg-[var(--color-bg-surface)] border border-[var(--color-border-strong)] rounded-xl p-8 shadow-xl">
-
-          <div className="mb-7">
-            <h2 className="text-xl font-semibold text-[var(--color-text-primary)]">
-              Create Account
-            </h2>
-
-            <p className="mt-1 text-sm text-[var(--color-text-muted)]">
-              Create your InsightFlow account to get started.
-            </p>
-          </div>
-
-          {/* Error */}
-          {error && (
-            <div className="mb-5 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
-              {error}
-            </div>
-          )}
-
-          {/* Success */}
-          {success && (
-            <div className="mb-5 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-400">
-              {success}
-            </div>
-          )}
-
-          {/* Google */}
-          <button
-            type="button"
-            onClick={handleGoogleRegister}
-            disabled={googleLoading || loading}
-            className="w-full flex items-center justify-center gap-3 rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm font-medium text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-bg-surface-hover)] disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {googleLoading ? "Connecting..." : "Continue with Google"}
-          </button>
-
-          {/* Divider */}
-          <div className="flex items-center gap-4 my-6">
-            <div className="h-px flex-1 bg-[var(--color-border-subtle)]" />
-
-            <span className="text-xs font-mono text-[var(--color-text-muted)]">
-              OR
-            </span>
-
-            <div className="h-px flex-1 bg-[var(--color-border-subtle)]" />
-          </div>
-
-          {/* Form */}
-          <form onSubmit={handleRegister} className="space-y-5">
-
-            {/* Email */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2"
-              >
-                Email
-              </label>
-
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="you@example.com"
-                required
-                autoComplete="email"
-                className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)]"
-              />
-            </div>
-
-            {/* Password */}
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2"
-              >
-                Password
-              </label>
-
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                placeholder="Create a password"
-                required
-                autoComplete="new-password"
-                className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)]"
-              />
-            </div>
-
-            {/* Confirm Password */}
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-[var(--color-text-secondary)] mb-2"
-              >
-                Confirm Password
-              </label>
-
-              <input
-                id="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                onChange={(event) => setConfirmPassword(event.target.value)}
-                placeholder="Confirm your password"
-                required
-                autoComplete="new-password"
-                className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition focus:border-[var(--color-brand-blue)] focus:ring-1 focus:ring-[var(--color-brand-blue)]"
-              />
-            </div>
-
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={loading || googleLoading}
-              className="w-full rounded-lg bg-[var(--color-brand-blue)] px-4 py-3 text-sm font-medium text-white transition-colors hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {loading ? "Creating account..." : "Create Account"}
-            </button>
-
-          </form>
-
-          {/* Login Link */}
-          <p className="text-center text-sm text-[var(--color-text-muted)] mt-7">
-            Already have an account?{" "}
-
-            <Link
-              to="/login"
-              className="font-medium text-[var(--color-text-primary)] hover:text-[var(--color-brand-blue)] transition-colors"
-            >
-              Sign in
-            </Link>
-          </p>
-
-        </div>
+    {/* Header */}
+    <div className="mb-7">
+      <div className="mb-6">
+        <span className="text-lg font-bold tracking-tight text-[var(--color-text-primary)]">
+          Insight<span className="text-[var(--color-brand-blue)]">Flow</span>
+        </span>
       </div>
-    </div>
-  );
 
+      <h1 className="text-2xl font-semibold tracking-tight text-[var(--color-text-primary)]">
+        Create account
+      </h1>
+
+      <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
+        Create your InsightFlow account to get started.
+      </p>
+    </div>
+
+    {/* Error */}
+    {error && (
+      <div className="mb-5 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+        {error}
+      </div>
+    )}
+
+    {/* Success */}
+    {success && (
+      <div className="mb-5 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-400">
+        {success}
+      </div>
+    )}
+
+    {/* Register Form */}
+    <form onSubmit={handleRegister} className="space-y-4">
+
+      {/* Email */}
+      <div>
+        <label
+          htmlFor="email"
+          className="mb-2 block text-xs font-medium text-[var(--color-text-secondary)]"
+        >
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="you@example.com"
+          required
+          autoComplete="email"
+          className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition-all focus:border-[var(--color-brand-blue)] focus:ring-2 focus:ring-[var(--color-brand-blue)]/20"
+        />
+      </div>
+
+      {/* Password */}
+      <div>
+        <label
+          htmlFor="password"
+          className="mb-2 block text-xs font-medium text-[var(--color-text-secondary)]"
+        >
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          placeholder="Create a password"
+          required
+          autoComplete="new-password"
+          className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition-all focus:border-[var(--color-brand-blue)] focus:ring-2 focus:ring-[var(--color-brand-blue)]/20"
+        />
+      </div>
+
+      {/* Confirm Password */}
+      <div>
+        <label
+          htmlFor="confirmPassword"
+          className="mb-2 block text-xs font-medium text-[var(--color-text-secondary)]"
+        >
+          Confirm Password
+        </label>
+
+        <input
+          id="confirmPassword"
+          type="password"
+          value={confirmPassword}
+          onChange={(event) => setConfirmPassword(event.target.value)}
+          placeholder="Confirm your password"
+          required
+          autoComplete="new-password"
+          className="w-full rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none transition-all focus:border-[var(--color-brand-blue)] focus:ring-2 focus:ring-[var(--color-brand-blue)]/20"
+        />
+      </div>
+
+      {/* Create Account */}
+      <button
+        type="submit"
+        disabled={loading || googleLoading}
+        className="w-full rounded-lg bg-[var(--color-brand-blue)] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/10 transition-all hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        {loading ? "Creating account..." : "Create Account"}
+      </button>
+
+    </form>
+
+    {/* Divider */}
+    <div className="my-5 flex items-center gap-4">
+      <div className="h-px flex-1 bg-[var(--color-border-subtle)]" />
+
+      <span className="text-[11px] text-[var(--color-text-muted)]">
+        OR
+      </span>
+
+      <div className="h-px flex-1 bg-[var(--color-border-subtle)]" />
+    </div>
+
+    {/* Google */}
+    <button
+      type="button"
+      onClick={handleGoogleRegister}
+      disabled={googleLoading || loading}
+      className="flex w-full items-center justify-center gap-3 rounded-lg border border-[var(--color-border-strong)] bg-[var(--color-bg-base)] px-4 py-3 text-sm font-medium text-[var(--color-text-primary)] transition-all hover:border-[var(--color-brand-blue)] hover:bg-[var(--color-bg-surface-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          fill="#4285F4"
+          d="M21.35 12.23c0-.78-.07-1.53-.22-2.25H12v4.26h5.22a4.46 4.46 0 0 1-1.94 2.93v2.43h3.14c1.84-1.69 2.93-4.18 2.93-7.37Z"
+        />
+        <path
+          fill="#34A853"
+          d="M12 21.75c2.63 0 4.84-.87 6.45-2.35l-3.14-2.43c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.5A9.75 9.75 0 0 0 12 21.75Z"
+        />
+        <path
+          fill="#FBBC05"
+          d="M6.54 13.86A5.86 5.86 0 0 1 6.23 12c0-.65.11-1.28.31-1.86v-2.5H3.3A9.75 9.75 0 0 0 2.25 12c0 1.57.38 3.05 1.05 4.36l3.24-2.5Z"
+        />
+        <path
+          fill="#EA4335"
+          d="M12 6.11c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.2 14.63 2.25 12 2.25A9.75 9.75 0 0 0 3.3 7.64l3.24 2.5C7.31 7.83 9.46 6.11 12 6.11Z"
+        />
+      </svg>
+
+      {googleLoading ? "Connecting..." : "Continue with Google"}
+    </button>
+
+    {/* Login */}
+    <p className="mt-7 text-center text-xs text-[var(--color-text-muted)]">
+      Already have an account?{" "}
+      <Link
+        to="/login"
+        className="font-medium text-[var(--color-brand-blue)] transition hover:underline"
+      >
+        Sign in
+      </Link>
+    </p>
+
+  </AuthLayout>
+);
 }
